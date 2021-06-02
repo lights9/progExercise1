@@ -8,38 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppTest {
 
 
-
-
-    @Test
-    @DisplayName("Password is valid!")
-    public void checkPasswordValid1() {
-        App a = new App();
-        boolean result = a.checkPassword("Hello34!Hi");
-        //assertion
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Password is valid!")
-    public void checkPasswordValid2() {
-        App a = new App();
-        boolean result = a.checkPassword("HeLLO45!/?");
-        //assertion
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Password is NOT valid!")
-    public void checkPasswordValid3() {
-        App a = new App();
-        boolean result = a.checkPassword("Short3#");
-        //assertion
-        assertFalse(result);
-    }
-
-
-
-    //check password length
     @Test
     @DisplayName("Password length NOT enough!")
     public void shortPassword() {
@@ -58,46 +26,27 @@ public class AppTest {
         assertFalse(result);
     }
 
-
-    @Test
-    @DisplayName("Password has no uppercase letters! ")
-    public void hasNoUpperCase() {
-        App a = new App();
-        //password consists of only lowercase letters
-        boolean result = a.checkPassword("password3%");
-        //assertion
-        assertFalse(result);
-    }
-
-    @Test
-    @DisplayName("Password has no lowercase letters! ")
-    public void hasNoLowerCase() {
-        App a = new App();
-        //password consists of only uppercase letters
-        boolean result = a.checkPassword("PASSWORD3%");
-        //assertion
-        assertFalse(result);
-    }
-
     @Test
     @DisplayName("Password has both lower and uppercase")
     public void checkUpAndLow() {
         App b = new App();
-        boolean result = b.hasUpperAndLowerCase("Password43!");
+        boolean result = b.checkPassword("Password43!");
         assertTrue(result);
     }
 
     @Test
+    @DisplayName("Password has only lowercase")
     public void checkLowerOnly() {
         App b = new App();
-        boolean result = b.hasUpperAndLowerCase("password43!");
+        boolean result = b.checkPassword("password43!");
         assertFalse(result);
     }
 
     @Test
+    @DisplayName("Password has only uppercase")
     public void checkUpperOnly() {
         App b = new App();
-        boolean result = b.hasUpperAndLowerCase("PASSWORD43!");
+        boolean result = b.checkPassword("PASSWORD43!");
         assertFalse(result);
     }
 
@@ -106,7 +55,7 @@ public class AppTest {
     public void hasNoNumbers() {
         App a = new App();
         //password consists of no digits
-        boolean result = a.hasNumber("Password??");
+        boolean result = a.checkPassword("Password??");
         //assertion
         assertFalse(result);
     }
@@ -116,26 +65,14 @@ public class AppTest {
     public void hasNumbers() {
         App a = new App();
         //password consists of digits
-        boolean result = a.hasNumber("Password??3");
+        boolean result = a.checkPassword("Password??3");
         //assertion
         assertTrue(result);
     }
 
-    @Test
-    public void checkHasNumberTrue() {
-        App c = new App();
-        boolean result = c.checkPassword("Password4##");
-        assertTrue(result);
-    }
 
     @Test
-    public void checkHasNumberFalse() {
-        App c = new App();
-        boolean result = c.checkPassword("Password&##");
-        assertFalse(result);
-    }
-
-    @Test
+    @DisplayName("Password has special character")
     public void checkHasSpecialCharacterTrue() {
         App c = new App();
         boolean result = c.checkPassword("Password4##");
@@ -143,6 +80,7 @@ public class AppTest {
     }
 
     @Test
+    @DisplayName("Password has NO special characters")
     public void checkHasSpecialCharacterFalse() {
         App c = new App();
         boolean result = c.checkPassword("Password40");
@@ -150,6 +88,7 @@ public class AppTest {
     }
 
     @Test
+    @DisplayName("Password has NO following numbers!")
     public void checkHasNoFollowingNumTrue() {
         App d = new App();
         boolean result = d.checkPassword("Password13#");
@@ -157,36 +96,44 @@ public class AppTest {
     }
 
     @Test
+    @DisplayName("Password has following numbers!")
     public void checkHasNoFollowingNumFalse() {
         App d = new App();
         boolean result = d.checkPassword("Password123#");
         assertFalse(result);
     }
 
-
-
-
+    @Test
+    @DisplayName("Password has 3 identical numbers in a row!")
+    public void checkHas3RepeatingNum() {
+        App d = new App();
+        boolean result = d.checkPassword("PassWord111#");
+        assertTrue(result);
+    }
 
 
     @Test
-    @DisplayName("Password has no repeating numbers!")
+    @DisplayName("Password has NO repeating numbers!")
     public void checkHasNoRepeatingNumTrue() {
         App d = new App();
-        boolean result = d.checkPassword("Password11##?");
+        boolean result = d.checkPassword("Password11#");
         assertTrue(result);
     }
 
     @Test
-    @DisplayName("Password has no repeating numbers!")
+    @DisplayName("Password has REPEATING numbers!")
     public void checkHasNoRepeatingNumFalse() {
         App d = new App();
-        boolean result = d.hasNoRepeatingNumbers("Password444#");
+        boolean result = d.checkPassword("Password1111#");
         assertFalse(result);
     }
+
+
     @Test
-    public void checkHasNoRepeatingNumFalse2() {
+    @DisplayName("There is no input!")
+    public void checkPassInput() {
         App d = new App();
-        boolean result = d.hasNoRepeatingNumbers("Password1111#");
+        boolean result = d.checkPassword(" ");
         assertFalse(result);
     }
 
