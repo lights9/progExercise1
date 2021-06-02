@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class App {
 
     public boolean checkPassword(String password) {
+
         return password != null && passLength(password) && hasUpperAndLowerCase(password)
                 && hasNumber(password) && hasSpecialCharacter(password) && hasNoFollowingNumber(password)
                 && hasNoRepeatingNumbers(password);
@@ -41,8 +42,31 @@ public class App {
     }
 
     public boolean hasNoRepeatingNumbers(String password) {
+        if (password == null) {
+            return false;
+        }
+        char[] chars = password.toCharArray();
 
-    return true;
+        char helper = 0;
+        int count = 0;
+        for (char c : chars) {
+            if (Character.isDigit(c)) {
+                if (helper == 0) {
+                    helper = c;
+                    count++;
+                } else if (c == helper) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count >= 3) {
+                    return false;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return true;
     }
 
 
